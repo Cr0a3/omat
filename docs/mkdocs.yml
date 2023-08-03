@@ -1,0 +1,8 @@
+site_name: omat docs
+nav:
+  - About omat: about.md
+  - Installation guide: install.md 
+  - The toolchain: toolchain.md
+  - Hello World example: helloWorld.md
+  - Omat by example: omat_by_example.md
+theme: readthedocs

@@ -1,0 +1,12 @@
+{
+    "Ee001": "invalid command", 
+    "Ee002": "explain command takes an argument",
+    "Ee003": "could not read error file, because it does not exits",
+    "Ee004": "error does not exits",
+    "Et001": "invalid command",
+    "Et002": "error while creating new package: ...",
+    "Et003": "expect an package name",
+    "Et004": "unaviable target: ...",
+    "Et005": "Permission denied: ...",
+    "Et006": "could not find opack.json file"
+}
