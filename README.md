@@ -16,7 +16,7 @@ At the current build there are 3 programms in the toolchain: <br>
 - Static type system
 - Safe and fast runtime
 - Perfect for os development
-- Easy to mix C and omat
+- Easy to mix with other languages
 - Easy to learn for Rust programmers
 - LLVM backend
 
