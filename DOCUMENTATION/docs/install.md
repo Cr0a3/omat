@@ -13,13 +13,13 @@ First, you need to download the source code.
 <b> [link to source code] </b>
 
 The omat toolchain is written in rust, so you need to install rust:
-<code>
+```
 sudo apt install cargo -y
-</code>
+```
 than you can go into each subdirectory (not the docs directory) and run:
-<code>
+```
 cargo build --release
-</code>
+```
 Than in each subdirectory (not the docs directory) is a folder with the name target, in there is a folder with the name release
 go into that folders and copy the excutable into the bin directory.
 After the build you need to add the bin directory to the system enviroment variables.

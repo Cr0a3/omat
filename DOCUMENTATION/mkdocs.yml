@@ -4,5 +4,5 @@ nav:
   - Installation guide: install.md 
   - The toolchain: toolchain.md
   - Hello World example: helloWorld.md
-  - Omat by example: omat_by_example.md
+  - Examples: examples.md
 theme: readthedocs

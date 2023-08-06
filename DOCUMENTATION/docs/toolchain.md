@@ -10,9 +10,9 @@ The tool oexp provides error explenations for all errors that occure in a omat t
 you can custumize the oexp programm for your own programming language by edditing the oexp_exps.json file in the data folder, in the installation.
 
 Example using:
-<code>
+```
 oexp explain Ee000
-</code>
+```
 
 explans the error 000 in the oexp programm
 
@@ -23,9 +23,9 @@ It provides commands to build and create an package.
 It uses to build the omat compiler (omatc).
 
 Example using:
-<code>
+```
 opack new test
-</code>
+```
 
 creates an project (or package) with the name test.
 
