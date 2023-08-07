@@ -1,4 +1,6 @@
 site_name: omat docs
+site_url: https://example.com/
+
 nav:
   - About omat: index.md
   - Starting of:
@@ -13,4 +15,5 @@ nav:
 
   - Libarys:
     - Quick overview: quick_overview.md
-theme: readthedocs
+theme: 
+  name: readthedocs

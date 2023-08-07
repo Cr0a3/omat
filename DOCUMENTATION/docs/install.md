@@ -5,7 +5,7 @@ save it to your disk and then add the bin directory to your system enviroment va
 
 <b> [link to prebuilded windows binarys]  </b>
 
-When you do not have a windows computer you build the toolchain for yourself
+When you don't have a windows computer you can build the toolchain for yourself.
 
 ## Build the omat toolchain
 First, you need to download the source code.

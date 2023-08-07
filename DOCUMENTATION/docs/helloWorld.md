@@ -1,14 +1,15 @@
 # Hello World
-Since the c programming language it is a tradition for programmers who starting with a new programming
+Since the c programming language there is a tradition for programmers who starting with a new programming
 language to write a "Hello World!" programm. 
 
-When doing that with omat, whe first need to create an new project (package). We do that with opack:
+When doing that with omat, we first need to create a new project (package). We do that with opack:
 ```
 opack new HelloWorld
 ```
 Then we need to navigate into that folder.
-To build and run this package you need to run:
+To build and run this package:
 ```
+cd HelloWorld
 opack run
 ```
 That also creates an [unoptimized] excutable in the target/debug folder.
