@@ -1,9 +1,16 @@
 site_name: omat docs
 nav:
-  - About omat: about.md
-  - Installation guide: install.md 
-  - The toolchain: toolchain.md
-  - Hello World example: helloWorld.md
-  - Examples: examples.md
-  - Omat Compiler: omatc.md
+  - About omat: index.md
+  - Starting of:
+    - Installation guide: install.md 
+    - The toolchain: toolchain.md
+    - Hello World example: helloWorld.md
+
+  - Documentation:
+    - Examples: examples.md
+    - Omat Compiler: omatc.md
+    - Comments: comments.md
+
+  - Libarys:
+    - Quick overview: quick_overview.md
 theme: readthedocs
