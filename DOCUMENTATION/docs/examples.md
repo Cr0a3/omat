@@ -341,11 +341,12 @@ export fn _entry() -> i32 { //entry function where to bootloader jumps in
 }
 ```
 
-To use the os libary in your own os, you need to add following compiler flags:
-    - <code>-static_os</code>   to staticly link in the os libary
-    - <code>-bareMetal</code>   to set no os dependencys
-    - <code>-obj</code>         to set the output format to .o
-    - <code>-noMain</code>
-    - <code>-startCode=_entry</code>
+To use the os libary in your own os, you need to add following compiler flags: 
+
+ - <code>--static_os</code>   to staticly link in the os libary   
+ - <code>--bareMetal</code>   to set no os dependencys            
+ - <code>--obj</code>         to set the output format to .o      
+ - <code>--no_main</code>     to say it has no main function                                    
+ - <code>--startCode _entry</code>                                
 
 Then you need to say your bootloader to jump into that object file and exectute it. 

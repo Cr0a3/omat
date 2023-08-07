@@ -27,11 +27,11 @@ pub fn build(v: &str) -> bool {
     let mut arg = String::new();
 
     if v == "debug" {
-        arg = String::from("-debug");
+        arg = String::from("--debug");
     }
 
     else if v == "release" {
-        arg = String::from("-release");
+        arg = String::from("--release");
     }
 
     else {
@@ -46,7 +46,7 @@ pub fn build(v: &str) -> bool {
     let status = Command::new(compiler_path)
                                             .arg(arg)
                                             .arg(format!("-o {}/{}", get_path_to_build_dir(v), get_package_name()))
-                                            .arg(configJson::read_config_json(RELEATIV_CONFIG_PATH)["main_path"].to_string())
+                                            .arg(format!("--input {}", configJson::read_config_json(RELEATIV_CONFIG_PATH)["main_path"].to_string()))
                                             .status()
                                             .expect(
                                                 "Failed to start the compiler"
