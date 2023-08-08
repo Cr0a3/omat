@@ -13,4 +13,6 @@ fn main() {
     println!("BareMetal: {}", args.bare_metal);
     println!("Object: {}", args.obj);
     println!("StartCode: {}", args.start_code);
+    println!("Dynamic linking: {}", args.dynamic_linking);
+    println!("Static linking: {}", args.static_linking);
 }

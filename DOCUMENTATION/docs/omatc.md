@@ -68,3 +68,15 @@ Example of directly jumping into the <code>_entry</code> function:
 ```
 omatc --startCode _entry
 ```
+
+### --static_linking
+Sets, that every libary gets staticly linked (used as default).
+```
+omatc --static_linking
+```
+
+### --dynamic_linking
+Sets, that every libary gets linked via dynamic linking.
+```
+omatc --dynamic_linking
+```

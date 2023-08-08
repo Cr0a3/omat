@@ -1,6 +1,6 @@
 [package]
 name = "omatc"
-version = "0.0.0-unstable"
+version = "0.0.0-u"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

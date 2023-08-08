@@ -1,8 +1,8 @@
 extern crate clap;
+
 use clap::{Arg, App};
 
 const START_CODE_DEFAULT_VALUE: &str = "main";
-const OUTPUT_DEFAULT_VALUE: &str = "a";
 
 pub struct Args {
     pub input: String,
@@ -13,6 +13,8 @@ pub struct Args {
     pub bare_metal: bool,
     pub obj: bool,
     pub start_code: String,
+    pub static_linking: bool,
+    pub dynamic_linking: bool,
 }
 
 impl Args {
@@ -34,7 +36,6 @@ impl Args {
             .long("output") //allows --output
             .short("o") //allows -o 
             .takes_value(true)
-            .default_value(OUTPUT_DEFAULT_VALUE)
             .help("specifies the output file");
         
         let release_option = Arg::with_name("release")
@@ -65,6 +66,14 @@ impl Args {
             .default_value(START_CODE_DEFAULT_VALUE)
             .help("specifies the function, in which get jumped when calling the application");
 
+        let static_linking_option = Arg::with_name("static_linking")
+            .long("static_linking") // allows --static_linking
+            .help("Sets, that every libary gets staticly linked (used as default).");
+        
+        let dynamic_linking_option = Arg::with_name("dynamic_linking")
+            .long("dynamic_linking") // allows --dynamic_linking
+            .help("Sets, that every libary gets linked via dynamic linking.");
+
         // now add in the arguments we want to parse
         let app = app
             .arg(input_file_option)
@@ -74,15 +83,28 @@ impl Args {
             .arg(no_main_option)
             .arg(bare_metal_option)
             .arg(obj_option)
-            .arg(start_code_option);
+            .arg(start_code_option)
+            .arg(static_linking_option)
+            .arg(dynamic_linking_option);
 
         // extract the matches
         let matches = app.get_matches();
         
         let in_file = matches.value_of("input").unwrap();
 
-        let out_file = matches.value_of("output").unwrap();
+        let mut out_file = "a";
 
+        if matches.is_present("output") == false {
+            let in_file_without_ext = match in_file.clone().rfind('.') {
+                Some(index) => &in_file.clone()[0..index],
+                None => in_file.clone(),
+            };
+
+            out_file = in_file_without_ext.clone();
+        }
+        else {
+            out_file = matches.value_of("output").unwrap();
+        }
 
         let mut release_bool: bool =  matches.is_present("release");
         let mut debug_bool: bool =  matches.is_present("debug");
@@ -105,6 +127,20 @@ impl Args {
         
         let start_code = matches.value_of("start_code").unwrap();
 
+        let mut static_linking: bool = matches.is_present("static_linking");
+        let mut dynamic_linking: bool = matches.is_present("dynamic_linking");
+
+        if static_linking == true && dynamic_linking == true {
+            eprintln!("Error: can't use static and dynamic linking at the same time. Procced with static linking version.");
+            static_linking = true;
+            dynamic_linking = false;
+        }
+
+        else if static_linking == false && dynamic_linking == false {
+            static_linking = true;
+            dynamic_linking = false;
+        }
+
         Args {  input: in_file.to_string(), 
                 output: out_file.to_string(),
                 release: release_bool.clone(),
@@ -113,6 +149,8 @@ impl Args {
                 bare_metal: bare_metal,
                 obj: obj,
                 start_code: start_code.to_string(),
+                static_linking: static_linking.clone(),
+                dynamic_linking: dynamic_linking.clone(),
             }
     }
 }

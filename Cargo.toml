@@ -4,3 +4,13 @@ members = [
     "opack",
     "oexp",
 ]
+
+[workspace.package]
+version = "0.0.0-u"
+authors = ["Toni Ivanovski"]
+edition = "2023"
+readme = "README.md"
+homepage = ""
+repository = "https://github.com/Toni-Graphics/omat"
+license = "BSD-3-Clause"
+keywords = ["omat", "package manager", "compiler"]
