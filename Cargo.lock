@@ -51,9 +51,9 @@ checksum = "630be753d4e58660abd17930c71b647fe46c27ea6b63cc59e1e3851406972e42"
 
 [[package]]
 name = "cc"
-version = "1.0.80"
+version = "1.0.82"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "51f1226cd9da55587234753d1245dd5b132343ea240f26b6a9003d68706141ba"
+checksum = "305fe645edc1442a0fa8b6726ba61d422798d37a52e12eaecf4b022ebbb88f01"
 dependencies = [
  "libc",
 ]
@@ -135,7 +135,7 @@ checksum = "443144c8cdadd93ebf52ddb4056d257f5b52c04d3c804e657d19eb73fc33668b"
 [[package]]
 name = "inkwell"
 version = "0.2.0"
-source = "git+https://github.com/TheDan64/inkwell?branch=master#4030f764f1c889f36429ac02ef32e04fcfa8ce33"
+source = "git+https://github.com/TheDan64/inkwell?branch=master#bbe1f3d76c45fc137a125665861fc6382ab352d6"
 dependencies = [
  "either",
  "inkwell_internals",
@@ -148,7 +148,7 @@ dependencies = [
 [[package]]
 name = "inkwell_internals"
 version = "0.8.0"
-source = "git+https://github.com/TheDan64/inkwell?branch=master#4030f764f1c889f36429ac02ef32e04fcfa8ce33"
+source = "git+https://github.com/TheDan64/inkwell?branch=master#bbe1f3d76c45fc137a125665861fc6382ab352d6"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -165,6 +165,12 @@ dependencies = [
  "rustix",
  "windows-sys",
 ]
+
+[[package]]
+name = "itoa"
+version = "1.0.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "af150ab688ff2122fcef229be89cb50dd66af9e01a4ff320cc137eecc9bacc38"
 
 [[package]]
 name = "lazy_static"
@@ -214,6 +220,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2dffe52ecf27772e601905b7522cb4ef790d2cc203488bbd0e2fe85fcb74566d"
 
 [[package]]
+name = "oexp"
+version = "0.1.0"
+dependencies = [
+ "colored",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "omatc"
 version = "0.0.0-unstable"
 dependencies = [
@@ -227,6 +242,15 @@ name = "once_cell"
 version = "1.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dd8b5dd2ae5ed71462c540258bedcb51965123ad7e7ccf4b9a8cafaa4a63576d"
+
+[[package]]
+name = "opack"
+version = "0.1.0"
+dependencies = [
+ "colored",
+ "serde",
+ "serde_json",
+]
 
 [[package]]
 name = "parking_lot"
@@ -309,9 +333,9 @@ checksum = "e5ea92a5b6195c6ef2a0295ea818b312502c6fc94dde986c5553242e18fd4ce2"
 
 [[package]]
 name = "rustix"
-version = "0.38.5"
+version = "0.38.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2a1655aa917ce9c3d8d4b85dc60766f7294d811c0f3d2a7582471dbaece54874"
+checksum = "172891ebdceb05aa0005f533a6cbfca599ddd7d966f6f5d4d9b2e70478e70399"
 dependencies = [
  "bitflags 2.3.3",
  "errno",
@@ -319,6 +343,12 @@ dependencies = [
  "linux-raw-sys",
  "windows-sys",
 ]
+
+[[package]]
+name = "ryu"
+version = "1.0.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1ad4cc8da4ef723ed60bced201181d83791ad433213d8c24efffda1eec85d741"
 
 [[package]]
 name = "scopeguard"
@@ -331,6 +361,37 @@ name = "semver"
 version = "1.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b0293b4b29daaf487284529cc2f5675b8e57c61f70167ba415a463651fd6a918"
+
+[[package]]
+name = "serde"
+version = "1.0.183"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "32ac8da02677876d532745a130fc9d8e6edfa81a269b107c5b00829b91d8eb3c"
+dependencies = [
+ "serde_derive",
+]
+
+[[package]]
+name = "serde_derive"
+version = "1.0.183"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "aafe972d60b0b9bee71a91b92fee2d4fb3c9d7e8f6b179aa99f27203d99a4816"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "serde_json"
+version = "1.0.104"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "076066c5f1078eac5b722a31827a8832fe108bed65dfa75e233c89f8206e976c"
+dependencies = [
+ "itoa",
+ "ryu",
+ "serde",
+]
 
 [[package]]
 name = "smallvec"

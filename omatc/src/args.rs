@@ -19,9 +19,9 @@ impl Args {
     pub fn new() -> Self {
         // basic app information
         let app = App::new("Omat's compiler")
+            .setting(clap::AppSettings::ArgRequiredElseHelp)
             .version("0.0.0 unstable")
-            .author("Toni Ivanovski")
-            .setting(clap::AppSettings::ArgRequiredElseHelp);
+            .author("Toni Ivanovski");
 
         // Define the command line options
         let input_file_option = Arg::with_name("input")
