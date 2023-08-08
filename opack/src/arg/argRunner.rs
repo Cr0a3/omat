@@ -11,11 +11,11 @@ const COMPILER_NAME: &str = "omatc.exe";
 const RELEATIV_CONFIG_PATH: &str = "Opack.json";
 
 fn get_path_to_build_dir(v: &str) -> String {
-    return configJson::read_config_json(RELEATIV_CONFIG_PATH)[format!("{}-target", v)].to_string();
+    return configJson::read_config_json(RELEATIV_CONFIG_PATH)[format!("{}-target", v)].to_string().replace("\"", "");
 }
 
 fn get_package_name() -> String {
-    return configJson::read_config_json(RELEATIV_CONFIG_PATH)["package-name"].to_string();
+    return configJson::read_config_json(RELEATIV_CONFIG_PATH)["package-name"].to_string().replace("\"", "");
 }
 
 pub fn build(v: &str) -> bool {
@@ -45,8 +45,10 @@ pub fn build(v: &str) -> bool {
 
     let status = Command::new(compiler_path)
                                             .arg(arg)
-                                            .arg(format!("-o {}/{}", get_path_to_build_dir(v), get_package_name()))
-                                            .arg(format!("--input {}", configJson::read_config_json(RELEATIV_CONFIG_PATH)["main_path"].to_string()))
+                                            .arg("-o")
+                                            .arg(format!("{}/{}", get_path_to_build_dir(v), get_package_name()))
+                                            .arg("--input")
+                                            .arg(format!("{}", configJson::read_config_json(RELEATIV_CONFIG_PATH)["main_path"].to_string().replace("\"", "")))
                                             .status()
                                             .expect(
                                                 "Failed to start the compiler"
