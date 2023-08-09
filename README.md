@@ -36,7 +36,7 @@ First, you need to download the source code.
 
 The omat toolchain is written in rust, so you need to install rust:
 <code>
-sudo apt install cargo -y
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 </code>
 than you can go into each subdirectory (not the docs directory) and run:
 <code>
