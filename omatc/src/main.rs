@@ -4,9 +4,11 @@ mod ast;
 fn main() {
     let args: args::Args = args::Args::new();
 
-    let code: String = String::from(args.input);
+    let code: String;
 
-    let scanner: ast::scanner::Scanner = ast::scanner::Scanner::new();
+    code = String::from("Hello World");
+
+    let scanner: ast::scanner::Scanner = ast::scanner::Scanner::new(code);
 
     scanner.scan();
 

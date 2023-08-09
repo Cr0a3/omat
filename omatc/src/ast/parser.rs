@@ -17,4 +17,8 @@ impl Parser {
     pub fn parse(&self) {
 
     }
+
+    pub fn get_exprs(&self) -> Vec<Expr> {
+        self.exprs
+    }
 }
