@@ -2,5 +2,5 @@ mod arg;
 mod error;
 
 fn main() {
-    arg::argParser::parse();
+    arg::arg_parser::parse();
 }

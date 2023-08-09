@@ -1,6 +1,6 @@
 use std::env;
 use crate::arg::helper;
-use crate::arg::argRunner;
+use crate::arg::arg_runner;
 use crate::error::error;
 
 pub fn parse() {
@@ -17,11 +17,11 @@ pub fn parse() {
                 }
 
                 "build" => {
-                    argRunner::build("debug");
+                    arg_runner::build("debug");
                 }
 
                 "clean" => {
-                    argRunner::clean("debug");
+                    arg_runner::clean("debug");
                 }
 
                 "new" => {
@@ -29,7 +29,7 @@ pub fn parse() {
                 }
 
                 "run" => {
-                    argRunner::run("debug");
+                    arg_runner::run("debug");
                 }
                 _ => {
                     error::error("Et001", "invalid command");
@@ -47,19 +47,19 @@ pub fn parse() {
                 }
 
                 "build" => {
-                    argRunner::build(opt.as_str());
+                    arg_runner::build(opt.as_str());
                 }
 
                 "clean" => {
-                    argRunner::clean(opt.as_str());
+                    arg_runner::clean(opt.as_str());
                 }
 
                 "new" => {
-                    argRunner::new(opt.as_str());
+                    arg_runner::new(opt.as_str());
                 }
 
                 "run" => {
-                    argRunner::run(opt.as_str());
+                    arg_runner::run(opt.as_str());
                 }
 
                 _ => {

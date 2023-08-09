@@ -1,6 +1,6 @@
 use std::process::Command;
 use crate::error::error;
-use crate::arg::configJson;
+use crate::arg::config_json;
 use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
@@ -11,11 +11,11 @@ const COMPILER_NAME: &str = "omatc.exe";
 const RELEATIV_CONFIG_PATH: &str = "Opack.json";
 
 fn get_path_to_build_dir(v: &str) -> String {
-    return configJson::read_config_json(RELEATIV_CONFIG_PATH)[format!("{}-target", v)].to_string().replace("\"", "");
+    return config_json::read_config_json(RELEATIV_CONFIG_PATH)[format!("{}-target", v)].to_string().replace("\"", "");
 }
 
 fn get_package_name() -> String {
-    return configJson::read_config_json(RELEATIV_CONFIG_PATH)["package-name"].to_string().replace("\"", "");
+    return config_json::read_config_json(RELEATIV_CONFIG_PATH)["package-name"].to_string().replace("\"", "");
 }
 
 pub fn build(v: &str) -> bool {
@@ -24,14 +24,14 @@ pub fn build(v: &str) -> bool {
         return false;
     }
 
-    let mut arg = String::new();
+    let version: &str;
 
     if v == "debug" {
-        arg = String::from("--debug");
+        version = "--debug";
     }
 
     else if v == "release" {
-        arg = String::from("--release");
+        version = "--release";
     }
 
     else {
@@ -44,11 +44,11 @@ pub fn build(v: &str) -> bool {
     let compiler_path = binary_directory.join(COMPILER_NAME);
 
     let status = Command::new(compiler_path)
-                                            .arg(arg)
+                                            .arg(version)
                                             .arg("-o")
                                             .arg(format!("{}/{}", get_path_to_build_dir(v), get_package_name()))
                                             .arg("--input")
-                                            .arg(format!("{}", configJson::read_config_json(RELEATIV_CONFIG_PATH)["main_path"].to_string().replace("\"", "")))
+                                            .arg(format!("{}", config_json::read_config_json(RELEATIV_CONFIG_PATH)["main_path"].to_string().replace("\"", "")))
                                             .status()
                                             .expect(
                                                 "Failed to start the compiler"
@@ -67,13 +67,14 @@ pub fn clean(v: &str) -> bool {
         return false;
     }
 
-    let mut dirPath: String = String::new();
+    let dir_path: String;
+
     if v == "debug" {
-        dirPath = get_path_to_build_dir(v);
+        dir_path = get_path_to_build_dir(v);
     }
 
     else if v == "release" {
-        dirPath = get_path_to_build_dir(v);
+        dir_path = get_path_to_build_dir(v);
     }
 
     else {
@@ -82,7 +83,7 @@ pub fn clean(v: &str) -> bool {
     }
 
     //remove dir
-    if let Err(err) = fs::remove_dir(dirPath) {
+    if let Err(err) = fs::remove_dir(dir_path) {
         // Check the specific error to handle different cases
         match err.kind() {
             std::io::ErrorKind::NotFound => {

@@ -1,5 +1,5 @@
-pub(crate) mod argParser;
-pub(crate) mod argRunner;
+pub(crate) mod arg_parser;
+pub(crate) mod arg_runner;
 pub(crate) mod helper;
 
-pub(crate) mod configJson;
+pub(crate) mod config_json;
