@@ -3,6 +3,7 @@ use crate::ast::token::TokenTyp;
 pub struct Scanner {
     tokens: Vec<TokenTyp>,
     code: String,
+    
 }
 
 impl Scanner {
@@ -13,7 +14,7 @@ impl Scanner {
         }
     }
 
-    pub fn scan(&self) {
+    pub fn scan(&mut self) {
 
     }
 

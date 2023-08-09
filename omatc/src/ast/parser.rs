@@ -14,7 +14,7 @@ impl Parser {
         }
     }
 
-    pub fn parse(&self) {
+    pub fn parse(&mut self) {
 
     }
 

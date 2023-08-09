@@ -32,7 +32,7 @@ impl CodeGenerator {
         }
     }
 
-    pub fn gen(&self) {
+    pub fn gen(&mut self) {
 
     }
 }
