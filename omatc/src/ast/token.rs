@@ -23,9 +23,46 @@ pub enum TokenTyp {
 
 }
 
+impl TokenTyp {
+    pub fn _str(&self) -> String {
+        let str: &str = match *self {
+            Self::EOF => "eof",
+            Self::NUMBER => "number",
+            Self::ADD => "",
+            Self::MIN => "",
+            Self::MUL => "",
+            Self::DIV => "",
+            Self::AddAdd => "",
+            Self::MinMin => "",
+            Self::LET => "",
+            Self::CONST => "",
+            Self::AddEqual => "",
+            Self::MinEqual => "",
+            Self::DivEqual => "",
+            Self::COLON => "",
+            Self::FN => "",
+            Self::LeftBracet => "",
+            Self::RightBracet => "",
+            Self::LeftParam => "",
+            Self::RightParam => "",
+            Self::RetType => "",
+            Self::Return => "",
+             _ => "",
+        };
+
+        format!("{}", str)
+    }
+}
+
 pub struct Token {
-    token_type: TokenTyp,
-    identifier: String,
-    line: i32,
-    file: String,
+    pub token_type: TokenTyp,
+    pub identifier: String,
+    pub line: i32,
+    pub file: String,
+}
+
+impl Token {
+    pub fn print(&self) {
+        println!("{}:{} token {}:{}", self.file, self.line, self.token_type._str(), self.identifier);
+    }
 }
