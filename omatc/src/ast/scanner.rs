@@ -17,7 +17,7 @@ impl Scanner {
 
     }
 
-    pub fn get_tokens(&self) -> Vec<TokenTyp> {
+    pub fn get_tokens(self) -> Vec<TokenTyp> {
         self.tokens
     }
 }
