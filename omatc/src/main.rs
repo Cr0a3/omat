@@ -6,6 +6,10 @@ fn main() {
 
     let code: String = String::from(args.input);
 
+    let scanner: ast::scanner::Scanner = ast::scanner::Scanner::new();
+
+    scanner.scan();
+
     println!("Code: == \n{}\n==", code.clone());
     println!("Output-File: {}", args.output);
     println!("Release: {}", args.release);
