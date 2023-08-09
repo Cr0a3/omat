@@ -20,15 +20,15 @@ impl CodeGenerator {
     pub fn new(_exprs: Vec<Expr>, _args: args::Args) -> Self {
         CodeGenerator { 
             exprs: _exprs, 
-            output: (), 
-            release: (), 
-            debug: (), 
-            no_main: (), 
-            bare_metal: (), 
-            obj: (), 
-            start_code: (), 
-            static_linking: (), 
-            dynamic_linking: () 
+            output: _args.output, 
+            release: _args.release, 
+            debug: _args.debug, 
+            no_main: _args.no_main, 
+            bare_metal: _args.bare_metal, 
+            obj: _args.obj, 
+            start_code: _args.start_code, 
+            static_linking: _args.static_linking, 
+            dynamic_linking: _args.dynamic_linking 
         }
     }
 
