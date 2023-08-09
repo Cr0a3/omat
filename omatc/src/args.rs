@@ -92,7 +92,7 @@ impl Args {
         
         let in_file = matches.value_of("input").unwrap();
 
-        let mut out_file = "a";
+        let out_file: &str;
 
         if matches.is_present("output") == false {
             let in_file_without_ext = match in_file.clone().rfind('.') {
