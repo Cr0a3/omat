@@ -5,15 +5,18 @@ pub struct CodeGenerator {
     exprs: Vec<Expr>,
 
     //options from args struct
-    pub output: String,
-    pub release: bool,
-    pub debug: bool,
-    pub no_main: bool,
-    pub bare_metal: bool,
-    pub obj: bool,
-    pub start_code: String,
-    pub static_linking: bool,
-    pub dynamic_linking: bool,
+    output: String,
+    release: bool,
+    debug: bool,
+    no_main: bool,
+    bare_metal: bool,
+    obj: bool,
+    start_code: String,
+    static_linking: bool,
+    dynamic_linking: bool,
+
+    current: usize,
+    start: usize,
 }
 
 impl CodeGenerator {
@@ -28,11 +31,26 @@ impl CodeGenerator {
             obj: _args.obj, 
             start_code: _args.start_code, 
             static_linking: _args.static_linking, 
-            dynamic_linking: _args.dynamic_linking 
+            dynamic_linking: _args.dynamic_linking, 
+            current: 0,
+            start: 0,
         }
     }
 
-    pub fn gen(&mut self) {
+    pub fn is_at_end(&self) -> bool {
+        self.current == self.exprs.len()
+    }
 
+    pub fn gen_expr(&mut self) {
+
+    }
+
+    pub fn gen(&mut self) {
+        while !self.is_at_end() {
+            self.start = self.current.clone();
+            self.current += 1;
+            
+            self.gen_expr();
+        }
     }
 }
