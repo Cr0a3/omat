@@ -22,3 +22,10 @@ pub enum TokenTyp {
     Return,
 
 }
+
+pub struct Token {
+    token_type: TokenTyp,
+    identifier: String,
+    line: i32,
+    file: String,
+}
