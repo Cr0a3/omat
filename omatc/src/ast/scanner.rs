@@ -1,7 +1,7 @@
-use crate::ast::token;
+use crate::ast::token::TokenTyp;
 
 pub struct Scanner {
-    tokens: Vec<token::TokenTyp>
+    tokens: Vec<TokenTyp>
 }
 
 impl Scanner {
@@ -13,5 +13,9 @@ impl Scanner {
 
     pub fn scan(&self) {
 
+    }
+
+    pub fn get_tokens(&self) -> Vec<TokenTyp> {
+        
     }
 }

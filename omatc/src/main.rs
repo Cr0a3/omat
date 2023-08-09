@@ -10,15 +10,12 @@ fn main() {
 
     scanner.scan();
 
-    println!("Code: == \n{}\n==", code.clone());
-    println!("Output-File: {}", args.output);
-    println!("Release: {}", args.release);
-    println!("Debug: {}", args.debug);
-    println!("No_main: {}", args.no_main);
-    println!("BareMetal: {}", args.bare_metal);
-    println!("Object: {}", args.obj);
-    println!("StartCode: {}", args.start_code);
-    println!("Dynamic linking: {}", args.dynamic_linking);
-    println!("Static linking: {}", args.static_linking);
+    let parser: ast::parser::Parser = ast::parser::Parser::new(scanner.get_tokens());
+
+    parser.parse();
+
+    let code_gen: ast::code::CodeGenerator = ast::code::CodeGenerator::new(parser.get_exprs(), args);
+
+    code_gen.gen();
 
 }
