@@ -1,9 +1,10 @@
 mod args;
+mod ast;
 
 fn main() {
     let args: args::Args = args::Args::new();
 
-    let code = String::from(args.input.clone());
+    let code: String = String::from(args.input);
 
     println!("Code: == \n{}\n==", code.clone());
     println!("Output-File: {}", args.output);
@@ -15,4 +16,5 @@ fn main() {
     println!("StartCode: {}", args.start_code);
     println!("Dynamic linking: {}", args.dynamic_linking);
     println!("Static linking: {}", args.static_linking);
+
 }
