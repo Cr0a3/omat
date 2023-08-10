@@ -9,9 +9,9 @@ pub struct Parser {
 }
 
 impl Parser {
-    pub fn new(_tokens: Vec<Token>) -> Self {
+    pub fn new(_tokens: &Vec<Token>) -> Self {
         Parser {
-            tokens: _tokens,
+            tokens: *_tokens,
             exprs: Vec::new(),
             current: 0,
             start: 0,
