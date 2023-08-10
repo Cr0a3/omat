@@ -18,19 +18,27 @@ impl Parser {
         }
     }
 
+    fn peek(&self) -> &Token {
+        self.tokens.get(self.current).expect("token vector out of range")
+    }
+
+    fn advance(&mut self) -> &Token {
+        self.current += 1;
+        self.peek()
+    }
+
     fn parse_expr(&mut self) {
-        let token = self.tokens.get(self.current).expect("vector out of range");
+        let token = self.advance();
         token.print();
     }
 
     fn is_at_end(&mut self) -> bool {
-        self.current >= self.tokens.len() 
+        self.current >= ( self.tokens.len() -1)
     } 
 
     pub fn parse(&mut self) {
         while !self.is_at_end() {
             self.start = self.current.clone();
-            self.current += 1;
 
             self.parse_expr();
         }

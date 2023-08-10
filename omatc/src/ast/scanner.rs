@@ -28,7 +28,7 @@ impl Scanner {
     }
 
     fn is_at_end(&mut self) -> bool {
-        self.current >= self.tokens.len()
+        self.current >= (self.code.len() -1)
     }
 
     fn advance(&mut self) -> char {
@@ -38,18 +38,21 @@ impl Scanner {
     }
 
     fn peek(&mut self) -> char {
-        self.code.chars().nth(self.current).expect("error")
+        self.code.chars().nth(self.current).expect("code chars out of range")
     }
 
     fn scan_token(&mut self) {
-        let c: char = self.peek();
-        println!("{}", c);
+        let c: char = self.advance();
+        match c {
+            _ => { 
+                eprintln!("unexpected character: {}", c);
+            },
+        }
     } 
 
     pub fn scan(&mut self) {
         while !self.is_at_end() {
-            self.start = self.current;
-            self.current += 1;
+            self.start = self.current.clone();
 
             self.scan_token();
         }
