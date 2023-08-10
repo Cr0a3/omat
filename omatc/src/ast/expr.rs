@@ -4,6 +4,8 @@ pub enum Expr {
     Assing(Assing),
     Binary(Binary),
     Set(Set),
+    Grouping(Grouping),
+    Logical(Logical),
 }
 
 pub struct Assing {
@@ -22,4 +24,14 @@ pub struct Set {
     object: Box<Expr>,
     name: Token,
     value: Box<Expr>,
+}
+
+pub struct Grouping {
+    expr: Expr,
+}
+
+pub struct Logical {
+    lhs: Expr,
+    op: Token,
+    rhs: Expr,
 }
