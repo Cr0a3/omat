@@ -9,29 +9,29 @@ pub enum Expr {
 }
 
 pub struct Assing {
-    name: Token,
-    _type: Token,
-    value: Expr,
+    name: Box<Token>,
+    _type: Box<Token>,
+    value: Box<Expr>,
 }
 
 pub struct Binary {
-    lhs: Expr,
-    op: Token,
-    rhs: Expr,
+    lhs: Box<Expr>,
+    op: Box<Token>,
+    rhs: Box<Expr>,
 }
 
 pub struct Set {
     object: Box<Expr>,
-    name: Token,
+    name: Box<Token>,
     value: Box<Expr>,
 }
 
 pub struct Grouping {
-    expr: Expr,
+    expr: Box<Expr>,
 }
 
 pub struct Logical {
-    lhs: Expr,
-    op: Token,
-    rhs: Expr,
+    lhs: Box<Expr>,
+    op: Box<Token>,
+    rhs: Box<Expr>,
 }

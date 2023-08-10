@@ -62,6 +62,14 @@ pub struct Token {
 }
 
 impl Token {
+    pub fn new(_token_type: &TokenTyp, line: &i32, _ident: &String, _file: &String) -> Self {
+        Token { 
+            token_type: *_token_type,
+            identifier: *_ident,
+            line: *line,
+            file: *_file }
+    }
+
     pub fn print(&self) {
         println!("{}:{} token {}:{}", self.file, self.line, self.token_type._str(), self.identifier);
     }
