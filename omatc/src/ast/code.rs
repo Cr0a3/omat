@@ -20,9 +20,9 @@ pub struct CodeGenerator {
 }
 
 impl CodeGenerator {
-    pub fn new(_exprs: &Vec<Expr>, _args: &args::Args) -> Self {
+    pub fn new(_exprs: Vec<Expr>, _args: args::Args) -> Self {
         CodeGenerator { 
-            exprs: *_exprs, 
+            exprs: _exprs, 
             output: _args.output, 
             release: _args.release, 
             debug: _args.debug, 

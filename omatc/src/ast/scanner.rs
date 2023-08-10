@@ -1,48 +1,47 @@
-use crate::ast::token::Token;
-
-use super::token::TokenTyp;
+use crate::ast::token::*;
 
 pub struct Scanner {
     tokens: Vec<Token>,
-    code: std::str::Chars<'_>,
-    file: String,
+    code: String,
     current: usize,
     start: usize,
     line: i32,
+    file: String,
 }
 
 impl Scanner {
-    pub fn new(_code: &String, _file: &String) -> Self {
+    pub fn new(_code: String, _file: String) -> Self {
         Scanner {
             tokens: Vec::new(),
-            code: (*_code).chars(),
+            code: _code.clone(),
             current: 0,
             start: 0,
             line: 1,
-            file: *_file,
+            file: _file.clone(),
         }
     }
 
-    fn add_token(&self, _token_type: &TokenTyp) {
-        let mut tok: Token  = Token::new(_token_type, &self.line, &String::new(), &self.file);
+    fn add_token(&mut self, _token_type: TokenTyp) {
+        let tok: Token  = Token::new(_token_type, self.line, String::new(), self.file.clone());
 
         self.tokens.push(tok);
     }
 
-    fn is_at_end(&self) -> bool {
+    fn is_at_end(&mut self) -> bool {
         self.current >= self.tokens.len()
     }
 
-    fn advance(&self) -> char {
+    fn advance(&mut self) -> char {
         self.current += 1;
-        self.peek()
+        let peek_result = self.peek();
+        peek_result
     }
 
-    fn peek(&self) -> char {
-        self.code.nth(self.current).expect("error")
+    fn peek(&mut self) -> char {
+        self.code.chars().nth(self.current).expect("error")
     }
 
-    fn scan_token(&self) {
+    fn scan_token(&mut self) {
         let c: char = self.peek();
         println!("{}", c);
     } 
@@ -55,7 +54,7 @@ impl Scanner {
             self.scan_token();
         }
 
-        self.add_token(&TokenTyp::EOF);
+        self.add_token(TokenTyp::EOF);
     }
 
     pub fn get_tokens(self) -> Vec<Token> {

@@ -62,12 +62,12 @@ pub struct Token {
 }
 
 impl Token {
-    pub fn new(_token_type: &TokenTyp, line: &i32, _ident: &String, _file: &String) -> Self {
+    pub fn new(_token_type: TokenTyp, line: i32, _ident: String, _file: String) -> Self {
         Token { 
-            token_type: *_token_type,
-            identifier: *_ident,
-            line: *line,
-            file: *_file }
+            token_type: _token_type,
+            identifier: _ident.clone(),
+            line: line.clone(),
+            file: _file.clone() }
     }
 
     pub fn print(&self) {
