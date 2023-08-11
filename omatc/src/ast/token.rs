@@ -1,3 +1,4 @@
+#[derive(Clone, Copy)]
 pub enum TokenTyp {
     EOF, // End of file
     IDENTIFIER,
@@ -54,6 +55,7 @@ impl TokenTyp {
     }
 }
 
+#[derive(Clone)]
 pub struct Token {
     pub token_type: TokenTyp,
     pub identifier: String,

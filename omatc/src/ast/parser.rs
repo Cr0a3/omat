@@ -1,4 +1,4 @@
-use crate::ast::token::Token;
+use crate::ast::token::*;
 use crate::ast::expr::Expr;
 
 pub struct Parser {
@@ -9,22 +9,24 @@ pub struct Parser {
 }
 
 impl Parser {
-    pub fn new(_tokens: Vec<Token>) -> Self {
+    pub fn new(_tokens: &mut Vec<Token>) -> Self {
+        _tokens.insert(0, Token::new(TokenTyp::EOF, 0, String::new(), String::new()));
         Parser {
-            tokens: _tokens,
+            tokens: _tokens.to_owned(),
             exprs: Vec::new(),
             current: 0,
             start: 0,
         }
     }
 
-    fn peek(&self) -> &Token {
-        self.tokens.get(self.current).expect("token vector out of range")
+    fn advance(&mut self) -> &Token {
+        self.current += 1; 
+        let res = self.peek();
+        res
     }
 
-    fn advance(&mut self) -> &Token {
-        self.current += 1;
-        self.peek()
+    fn peek(&self) -> &Token {
+        self.tokens.get(self.current).expect("token vector out of range")
     }
 
     fn parse_expr(&mut self) {
@@ -37,6 +39,7 @@ impl Parser {
     } 
 
     pub fn parse(&mut self) {
+
         while !self.is_at_end() {
             self.start = self.current.clone();
 

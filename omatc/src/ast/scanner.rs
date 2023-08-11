@@ -13,7 +13,7 @@ impl Scanner {
     pub fn new(_code: String, _file: String) -> Self {
         Scanner {
             tokens: Vec::new(),
-            code: _code.clone(),
+            code: format!("a{}", _code),    // the a because, peek() + advance() do not get the first char out of the string
             current: 0,
             start: 0,
             line: 1,
@@ -27,17 +27,16 @@ impl Scanner {
         self.tokens.push(tok);
     }
 
-    fn is_at_end(&mut self) -> bool {
+    fn is_at_end(&self) -> bool {
         self.current >= (self.code.len() -1)
     }
 
     fn advance(&mut self) -> char {
         self.current += 1;
-        let peek_result = self.peek();
-        peek_result
+        self.peek()
     }
 
-    fn peek(&mut self) -> char {
+    fn peek(&self) -> char {
         self.code.chars().nth(self.current).expect("code chars out of range")
     }
 

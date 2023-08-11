@@ -5,14 +5,14 @@ fn main() {
     let args: args::Args = args::Args::new();
 
     let code: String;
-    code = String::from("Hello World");
+    code = String::from("Hello World!");
 
     let mut scanner = ast::scanner::Scanner::new(code, args.input.clone());
     scanner.scan();
 
-    let tokens  = scanner.get_tokens();
+    let mut tokens  = scanner.get_tokens();
 
-    let mut parser: ast::parser::Parser = ast::parser::Parser::new(tokens);
+    let mut parser: ast::parser::Parser = ast::parser::Parser::new(&mut tokens);
 
     parser.parse();
 
