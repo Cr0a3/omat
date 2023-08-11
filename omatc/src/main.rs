@@ -22,5 +22,4 @@ fn main() {
 
     let mut code_gen = ast::code::CodeGenerator::new(exprs, args);
     code_gen.gen();
-
 }
