@@ -1,3 +1,4 @@
+use std::fmt::format;
 use std::process::Command;
 use crate::error::error;
 use crate::arg::config_json;
@@ -39,9 +40,27 @@ pub fn build(v: &str) -> bool {
         return false;
     }
 
-    let binary_path = env::current_exe().expect("Failed to get the current executable path");
-    let binary_directory = binary_path.parent().expect("Failed to get the parent directory");
-    let compiler_path = binary_directory.join(COMPILER_NAME);
+    let compiler_path: std::path::PathBuf;
+
+    let binary_path = env::current_exe();
+    match binary_path {
+        Ok(bin_path) => {
+            let bin_dir = bin_path.parent();
+            match bin_dir {
+                None => {
+                    error::error("Et009", "error while adding paths");
+                },
+                _ => {
+
+                }
+            }
+            compiler_path = bin_dir.unwrap().join(COMPILER_NAME);
+        }
+        Err(e) => {
+            error::error("Et008", format!("could not get current path: {}", e).as_str());
+            return false;
+        }
+    }
 
     let status = Command::new(compiler_path)
                                             .arg(version)
@@ -49,15 +68,20 @@ pub fn build(v: &str) -> bool {
                                             .arg(format!("{}/{}", get_path_to_build_dir(v), get_package_name()))
                                             .arg("--input")
                                             .arg(format!("{}", config_json::read_config_json(RELEATIV_CONFIG_PATH)["main_path"].to_string().replace("\"", "")))
-                                            .status()
-                                            .expect(
-                                                "Failed to start the compiler"
-                                            );
-    if status.success() {
-        return true;
-    }
-    else {
-        return false;
+                                            .status();
+    match status {
+        Ok(stat) => {
+            if stat.success() {
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
+        Err(e) => {
+            error::error("Et008", format!("could not start the compiler: {}", e).as_str());
+            return false;
+        },
     }
 }
 
@@ -182,12 +206,14 @@ pub fn run(v: &str) -> bool {
     if sucess == true {
         //launch programm
         let path: String = format!("{}/{}", get_path_to_build_dir(v), get_package_name());
-        let output: std::process::Output = Command::new(path)
-                              .output().expect(
-                                "Failed starting the programm"
-                              );
+        let output = Command::new(path)
+                              .output();
 
-        println!("Programm exits with value {}", output.status);                      
+        match output {
+            Ok(o) =>  println!("Programm exits with value {}", o.status),
+            Err(_) => error::error("Et007", "could not start the application"),
+        }
+                
         return true;
     }
 

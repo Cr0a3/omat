@@ -8,5 +8,8 @@
     "Et003": "expect an package name",
     "Et004": "unaviable target: ...",
     "Et005": "Permission denied: ...",
-    "Et006": "could not find opack.json file"
+    "Et006": "could not find opack.json file",
+    "Et007": "could not start the application: ...",
+    "Et008": "could not get current path: ...",
+    "Et009": "error while adding paths"
 }
