@@ -6,9 +6,27 @@ use std::env;
 const JSON_FILE_NAME: &str = "data/oexp_exps.json";
 
 pub fn explain(ecode: &str) -> bool {
-    let binary_path = env::current_exe().expect("Failed to get the current executable path");
-    let binary_directory = binary_path.parent().expect("Failed to get the parent directory");
-    let json_path = binary_directory.join(JSON_FILE_NAME);
+    let json_path: std::path::PathBuf;
+
+    let binary_path = env::current_exe();
+    match binary_path {
+        Ok(bin_path) => {
+            let bin_dir = bin_path.parent();
+            match bin_dir {
+                None => {
+                    error::error("Ee005", "error while adding paths");
+                },
+                _ => {
+
+                }
+            }
+            json_path = bin_dir.unwrap().join(JSON_FILE_NAME);
+        }
+        Err(e) => {
+            error::error("Ee006", format!("could not get current path: {}", e).as_str());
+            return false;
+        }
+    }
 
     if Path::new(&json_path).exists() == false {
         error::error("Ee003", "could not find error file");
