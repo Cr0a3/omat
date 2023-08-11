@@ -15,6 +15,5 @@
     "Et008": "could not get current path: ...",
     "Et009": "error while adding paths",
     "Et010": "error while deseralizing json data struct: ...",
-    "Et011": "",
-    "Et012": ""
+    "Et011": "could not open json config file: ..."
 }
