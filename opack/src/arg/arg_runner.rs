@@ -1,4 +1,3 @@
-use std::fmt::format;
 use std::process::Command;
 use crate::error::error;
 use crate::arg::config_json;
