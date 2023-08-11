@@ -1,28 +1,49 @@
 use crate::ast::token::*;
+use crate::error::error;
 
 pub struct Scanner {
     tokens: Vec<Token>,
     code: String,
+
     current: usize,
     start: usize,
-    line: i32,
+    line: usize,
+
+    pos_in_line: isize,
+    line_str: String,
+    line_vec: Vec<String>,
+
     file: String,
 }
 
 impl Scanner {
     pub fn new(_code: String, _file: String) -> Self {
+
+        let lines: Vec<String> = _code.lines().map(String::from).collect();
+
+        let mut first_line: String = String::new();
+
+        if let Some(first) = lines.first().cloned() {
+            first_line = first;
+        } else {
+            std::process::exit(0);
+        }
+
         Scanner {
             tokens: Vec::new(),
             code: format!("a{}", _code),    // the a because, peek() + advance() do not get the first char out of the string
             current: 0,
             start: 0,
             line: 1,
+            pos_in_line: -1,
+            line_vec: lines,
+            line_str: first_line,
             file: _file.clone(),
         }
     }
 
     fn add_token(&mut self, _token_type: TokenTyp) {
-        let tok: Token  = Token::new(_token_type, self.line, String::new(), self.file.clone());
+        let tok: Token  = Token::new(_token_type, self.line as i32, String::new(), self.file.clone());
 
         self.tokens.push(tok);
     }
@@ -33,7 +54,24 @@ impl Scanner {
 
     fn advance(&mut self) -> char {
         self.current += 1;
-        self.peek()
+        let peek_res = self.peek();
+
+        if peek_res == '\n' {
+            self.pos_in_line = 0;
+            self.line += 1;
+
+            if let Some(first) = self.line_vec.get(self.line).cloned() {
+                self.line_str = first;
+            } else {
+                eprintln!("error, while resolving new line");
+            }
+
+        }
+        else {
+            self.pos_in_line += 1;
+        }
+
+        peek_res
     }
 
     fn peek(&self) -> char {
@@ -44,8 +82,8 @@ impl Scanner {
         let c: char = self.advance();
         match c {
             _ => { 
-                eprintln!("unexpected character: {}", c);
-            },
+                error::error("E0001", "unexpected character", self.file.as_str(), self.line_str.clone(), self.line, self.pos_in_line as usize, 1);
+            }
         }
     } 
 

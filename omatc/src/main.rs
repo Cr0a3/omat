@@ -1,5 +1,7 @@
 mod args;
 mod ast;
+pub mod error;
+pub use error::error::*;
 
 fn main() {
     let args: args::Args = args::Args::new();
