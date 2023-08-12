@@ -50,7 +50,7 @@ impl error_fab {
 
     pub fn add_arrow(&mut self, file: String, line: usize, where_start: usize) {
         let arrow = 
-                            format!("-->{}:{}:{}", file, line, where_start);
+                            format!("  -->{}:{}:{}", file, line, where_start);
 
         self.fmt_lines.push(arrow);
     }
