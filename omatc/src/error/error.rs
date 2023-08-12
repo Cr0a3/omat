@@ -32,13 +32,26 @@ impl error_fab {
         self.fmt_lines.push(code_line);
     }
 
-    pub fn add_where(&mut self, line_no: usize, where_start: usize, where_length: usize, where_msg_b: bool, where_msg: String) {
-        let where_str = format!("");
+    pub fn add_where(&mut self, where_start: usize, where_length: usize, where_msg_b: bool, where_msg: String) {
+        let mut where_str = String::new();
+
+        where_str += " ".repeat(where_start).as_str();
+        
+        if where_msg_b {
+            where_str += format!("^{}", where_msg).as_str();
+        }
+
+        else {
+            where_str += "^".repeat(where_length).as_str();
+        }
+
         self.fmt_lines.push(where_str);
     }
 
     pub fn add_arrow(&mut self, file: String, line: usize, where_start: usize) {
-        let arrow = format!("");
+        let arrow = 
+                            format!("-->{}:{}:{}", file, line, where_start);
+
         self.fmt_lines.push(arrow);
     }
 
@@ -54,12 +67,10 @@ impl error_fab {
 }
 
 pub fn error(ecode: &str, _msg: &str, file: &str, line: String, line_no: usize, where_start: usize, where_length: usize) {
-    let err: String = format!("error[{}]", ecode);
-    let arrow: String = format!("-->{}:{}:{}",file, line_no, where_start);
-    let where_str: String = format!("{}{}", " ".repeat(where_start), "^".repeat(where_length));
+    let mut e_fab = error_fab::new(ecode.to_string(), _msg.to_string());
+    e_fab.add_arrow(file.to_string(), line_no, where_start);
+    e_fab.add_code_line(line, true, line_no, false);
+    e_fab.add_where(where_start, where_length, false, String::new());
 
-    println!("{}: {}", err.red(), _msg.bold());
-    println!("  {}", arrow.truecolor(75, 75, 75).bold());
-    println!("{} | {}", line_no, line);
-    println!("    {}", where_str);
+    e_fab.print();
 }
