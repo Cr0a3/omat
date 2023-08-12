@@ -15,21 +15,36 @@ impl error_fab {
         }
     }
 
-    pub fn add_code_line(&self, line: String, display_line_no: bool, line_no: usize, add: bool) {
+    pub fn add_code_line(&mut self, line: String, display_line_no: bool, line_no: usize, display_add: bool) {
+        let mut code_line = String::new();
 
+        if display_line_no {
+            code_line += line_no.to_string().as_str();
+        }
+
+        else if display_add {
+            code_line += "+++";
+        }
+
+        code_line += " | ";
+        code_line += line.as_str();
+
+        self.fmt_lines.push(code_line);
     }
 
-    pub fn add_where(&self, line_no: usize, where_start: usize, where_length: usize, where_msg_b: bool, where_msg: String) {
-
+    pub fn add_where(&mut self, line_no: usize, where_start: usize, where_length: usize, where_msg_b: bool, where_msg: String) {
+        let where_str = format!("");
+        self.fmt_lines.push(where_str);
     }
 
-    pub fn add_arrow(&self, file: String, line: usize, where_start: usize) {
-
+    pub fn add_arrow(&mut self, file: String, line: usize, where_start: usize) {
+        let arrow = format!("");
+        self.fmt_lines.push(arrow);
     }
 
     pub fn print(&self) {
         let fmt_error = format!("error[{}]", self.ecode).red();
-        println!("{}: {}", fmt_error, self.msg);
+        println!("{}: {}", fmt_error, self.msg.bold());
         
         //print out all elements of self.fmt_lines
         for line in self.fmt_lines.iter() {
