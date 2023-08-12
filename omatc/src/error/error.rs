@@ -1,5 +1,19 @@
 use colored::Colorize;
 
+pub struct error_fab {
+
+}
+
+impl error_fab {
+    pub fn new() -> Self {
+        error_fab {  }
+    }
+
+    pub fn print(&self) {
+
+    } 
+}
+
 pub fn error(ecode: &str, _msg: &str, file: &str, line: String, line_no: usize, where_start: usize, where_length: usize) {
     let err: String = format!("error[{}]", ecode);
     let arrow: String = format!("-->{}:{}:{}",file, line_no, where_start);

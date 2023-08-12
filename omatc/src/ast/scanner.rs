@@ -60,7 +60,7 @@ impl Scanner {
             self.pos_in_line = 0;
             self.line += 1;
 
-            if let Some(first) = self.line_vec.get(self.line).cloned() {
+            if let Some(first) = self.line_vec.get(self.line -1).cloned() {
                 self.line_str = first;
             } else {
                 eprintln!("error, while resolving new line");
@@ -81,6 +81,26 @@ impl Scanner {
     fn scan_token(&mut self) {
         let c: char = self.advance();
         match c {
+            '+' => {
+
+            },
+            '-' => {
+
+            },
+            '*' => {
+
+            },
+            '/' => {
+                if self.peek() == '/' { // single line comment  //...
+                    while self.advance() != '\n' {}
+                }
+                else if self.peek() == '*' {    // multi line comment /*...*/
+                    let mut last_advance: char = ' ';
+                    while last_advance == '*' && self.peek() == '/' {
+                        last_advance = self.advance();
+                    }
+                }
+            },
             _ => { 
                 error::error("E0001", "unexpected character", self.file.as_str(), self.line_str.clone(), self.line, self.pos_in_line as usize, 1);
             }
