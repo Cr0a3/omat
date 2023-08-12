@@ -10,6 +10,14 @@ use std::env;
 const COMPILER_NAME: &str = "omatc.exe";
 const RELEATIV_CONFIG_PATH: &str = "Opack.json";
 
+const MAINOM_FILE_CONTENT: &str = r#"
+use std;
+
+fn main() -> i32 {
+    std::out.println("Hello World");
+    return 0;
+}"#;
+
 fn get_path_to_build_dir(v: &str) -> String {
     return config_json::read_config_json(RELEATIV_CONFIG_PATH)[format!("{}-target", v)].to_string().replace("\"", "");
 }
@@ -131,7 +139,6 @@ pub fn new(package_name: &str) {
         "{{ \"package-name\": \"{}\", \"debug-target\": \"target/debug\", \"release-target\": \"target/release\", \"main_path\": \"src/main.om\" }}",
         package_name
     );
-    let main_om_content = "Hello World!";
     
     // Create the root directory with the specified name
     if let Err(err) = fs::create_dir(&directory_name) {
@@ -186,7 +193,8 @@ pub fn new(package_name: &str) {
             return;
         }
     };
-    if let Err(err) = main_om_file.write_all(main_om_content.as_bytes()) {
+
+    if let Err(err) = main_om_file.write_all(MAINOM_FILE_CONTENT.as_bytes()) {
         error::error("Et002", format!("error while creating new package: {}", err).as_str());
         return;
     }
