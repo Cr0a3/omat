@@ -24,11 +24,17 @@ impl error_fab {
     }
 
     pub fn add_arrow(&self, file: String, line: usize, where_start: usize) {
-        
+
     }
 
     pub fn print(&self) {
-
+        let fmt_error = format!("error[{}]", self.ecode).red();
+        println!("{}: {}", fmt_error, self.msg);
+        
+        //print out all elements of self.fmt_lines
+        for line in self.fmt_lines.iter() {
+            println!("{}", line);
+        }
     } 
 }
 
