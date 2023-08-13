@@ -4,6 +4,7 @@ pub struct error_fab {
     ecode: String,
     msg: String,
     fmt_lines: Vec<String>,
+    before_len: usize,
 }
 
 impl error_fab {
@@ -12,6 +13,7 @@ impl error_fab {
             ecode: _ecode,
             msg: _msg,
             fmt_lines: Vec::new(),
+            before_len: 3,
         }
     }
 
@@ -27,6 +29,9 @@ impl error_fab {
         }
 
         code_line += " | ";
+
+        self.before_len = code_line.clone().len() -1;
+
         code_line += line.as_str();
 
         self.fmt_lines.push(code_line);
@@ -35,7 +40,7 @@ impl error_fab {
     pub fn add_where(&mut self, where_start: usize, where_length: usize, where_msg_b: bool, where_msg: String) {
         let mut where_str = String::new();
 
-        where_str += " ".repeat(where_start).as_str();
+        where_str += " ".repeat(where_start + self.before_len).as_str();
         
         if where_msg_b {
             where_str += format!("^{}", where_msg).as_str();
