@@ -92,8 +92,17 @@ impl Scanner {
                     self.add_token(TokenTyp::ADD);
                 }
             },
-            '-' => {
 
+            '-' => {
+                if self.peek() == '-' { //--
+                    self.add_token(TokenTyp::MinMin);
+                }
+                else if self.peek() == '=' { //-=
+                    self.add_token(TokenTyp::MinEqual);
+                }
+                else { //-
+                    self.add_token(TokenTyp::MIN);
+                }
             },
             '*' => {
 
