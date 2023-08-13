@@ -117,6 +117,12 @@ impl Scanner {
                         last_advance = self.advance();
                     }
                 }
+                else if self.peek() == '=' {  // /=
+                    self.add_token(TokenTyp::DIV);
+                }
+                else {
+                    self.add_token(TokenType::DIV);
+                }
             },
             _ => { 
                 error::error("E0001", "unexpected character", self.file.as_str(), self.line_str.clone(), self.line, self.pos_in_line as usize, 1);
