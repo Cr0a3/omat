@@ -134,6 +134,25 @@ impl Scanner {
                     self.add_token(TokenTyp::DIV);
                 }
             },
+
+            '(' => {
+                self.add_token(TokenTyp::LeftParam);
+            }
+
+            ')' => {
+                self.add_token(TokenTyp::RightParam);
+            }
+
+            '{' => {
+                self.add_token(TokenTyp::LeftBracet);
+
+            }
+
+            '}' => {
+                self.add_token(TokenTyp::RightBracet);
+
+            }
+
             _ => { 
                 error::error("E0001", "unexpected character", self.file.as_str(), self.line_str.clone(), self.line, self.pos_in_line as usize, 1);
             }
