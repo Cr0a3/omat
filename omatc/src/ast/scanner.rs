@@ -82,7 +82,15 @@ impl Scanner {
         let c: char = self.advance();
         match c {
             '+' => {
-
+                if self.peek() == '+' { //++
+                    self.add_token(TokenTyp::AddAdd);
+                }
+                else if self.peek() == '=' { //+=
+                    self.add_token(TokenTyp::AddEqual);
+                }
+                else { //+
+                    self.add_token(TokenTyp::ADD);
+                }
             },
             '-' => {
 
