@@ -153,6 +153,22 @@ impl Scanner {
 
             }
 
+            '.' => {
+                self.add_token(TokenTyp::DOT);
+            }
+
+            ',' => {
+                self.add_token(TokenTyp::COMMA);
+            }
+
+            '_' => {
+                self.add_token(TokenTyp::UNDER_SCORE);
+            }
+
+            ' ' => {}
+            '\r' => {}
+            '\t' => {}
+
             _ => { 
                 error::error("E0001", "unexpected character", self.file.as_str(), self.line_str.clone(), self.line, self.pos_in_line as usize, 1);
             }

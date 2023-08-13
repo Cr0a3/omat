@@ -2,6 +2,9 @@
 pub enum TokenTyp {
     EOF, // End of file
     IDENTIFIER,
+    
+    //formating stuff
+    DOT, COMMA, UNDER_SCORE,
 
     //Math
     NUMBER,
@@ -13,7 +16,6 @@ pub enum TokenTyp {
     IMUT,
     EQUAL,
     AddEqual, MinEqual, MulEqual, DivEqual,
-    COLON,
 
     //functions
     FN,
@@ -29,25 +31,28 @@ impl TokenTyp {
         let str: &str = match *self {
             Self::EOF => "eof",
             Self::NUMBER => "number",
-            Self::ADD => "",
-            Self::MIN => "",
-            Self::MUL => "",
-            Self::DIV => "",
-            Self::AddAdd => "",
-            Self::MinMin => "",
-            Self::LET => "",
-            Self::CONST => "",
-            Self::AddEqual => "",
-            Self::MinEqual => "",
-            Self::DivEqual => "",
-            Self::COLON => "",
-            Self::FN => "",
-            Self::LeftBracet => "",
-            Self::RightBracet => "",
-            Self::LeftParam => "",
-            Self::RightParam => "",
-            Self::RetType => "",
-            Self::Return => "",
+            Self::ADD => "add",
+            Self::MIN => "min",
+            Self::MUL => "mul",
+            Self::DIV => "div",
+            Self::POW => "pow (**)",
+            Self::AddAdd => "add add (++)",
+            Self::MinMin => "min min (--)",
+            Self::LET => "let",
+            Self::CONST => "const",
+            Self::AddEqual => "add equal (+=)",
+            Self::MinEqual => "min equal (-=)",
+            Self::DivEqual => "div equal (/=)",
+            Self::FN => "fn",
+            Self::LeftBracet => "left bracet ({)",
+            Self::RightBracet => "right bracet (})",
+            Self::LeftParam => "left param (()",
+            Self::RightParam => "right param ())",
+            Self::RetType => "ret type",
+            Self::Return => "return",
+            Self::DOT => "dot (.)",
+            Self::COMMA => "comma, (,)",
+            Self::UNDER_SCORE => "under score (_)",
              _ => "",
         };
 
