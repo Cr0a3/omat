@@ -5,7 +5,7 @@ pub enum TokenTyp {
 
     //Math
     NUMBER,
-    ADD, MIN, MUL, DIV,
+    ADD, MIN, MUL, DIV, POW,
     AddAdd, MinMin,
 
     //vars

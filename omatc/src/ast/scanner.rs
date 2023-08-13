@@ -104,9 +104,19 @@ impl Scanner {
                     self.add_token(TokenTyp::MIN);
                 }
             },
-            '*' => {
 
+            '*' => {
+                if self.peek() == '=' { // *=
+                    self.add_token(TokenTyp::MulEqual);
+                }
+                else if self.peek() == '*' { // **
+                    self.add_token(TokenTyp::POW);
+                }
+                else {  //*
+                    self.add_token(TokenTyp::MUL);
+                }
             },
+
             '/' => {
                 if self.peek() == '/' { // single line comment  //...
                     while self.advance() != '\n' {}
@@ -118,10 +128,10 @@ impl Scanner {
                     }
                 }
                 else if self.peek() == '=' {  // /=
-                    self.add_token(TokenTyp::DIV);
+                    self.add_token(TokenTyp::DivEqual);
                 }
                 else {
-                    self.add_token(TokenType::DIV);
+                    self.add_token(TokenTyp::DIV);
                 }
             },
             _ => { 
