@@ -5,6 +5,7 @@ use inkwell::OptimizationLevel;
 use inkwell::context::Context;
 use inkwell::module::Module;
 use inkwell::targets::{CodeModel, RelocMode, FileType, Target, TargetMachine, TargetTriple, InitializationConfig};
+use std::ops::Deref;
 use std::path::Path;
 use std::rc::Rc;
 
@@ -33,7 +34,6 @@ pub struct CodeGenerator {
     target: Target,
     machine: TargetMachine,
     context: Rc<Context>,
-    module: Module<'_>,
 }
 
 impl CodeGenerator {
@@ -60,8 +60,6 @@ impl CodeGenerator {
 
         let context = Rc::new(Context::create());
 
-        let module  = context.create_module("module");
-
         CodeGenerator { 
             exprs: _exprs, 
             output: _args.output, 
@@ -82,7 +80,6 @@ impl CodeGenerator {
             target: target,
             machine: target_machine,
             context: context,
-            module: module,
         }
     }
 
@@ -90,16 +87,19 @@ impl CodeGenerator {
         self.current == self.exprs.len()
     }
 
-    pub fn gen_expr(&mut self) {
+    pub fn gen_expr(&mut self, module: &Module<'_>) {
 
     }
 
     pub fn gen(&mut self) {
+        let context = self.context.clone();
+        let module  = context.create_module("module");
+
         while !self.is_at_end() {
             self.start = self.current.clone();
             self.current += 1;
             
-            self.gen_expr();
+            self.gen_expr(&module);
         }
         let out_file_type: FileType;
 
@@ -110,6 +110,14 @@ impl CodeGenerator {
             out_file_type = OUT_FILE_STDTYPE;
         }
 
-        self.machine.write_to_file(&self.module, out_file_type, Path::new(format!("{}.o", self.output).as_str())).is_ok();
+        let result = self.machine.write_to_file(&module, out_file_type, Path::new(format!("{}.o", self.output).as_str()));
+
+        match result {
+            Ok(_) => {}
+
+            Err(e) => {
+                eprintln!("error while saving excutable: {}", e);
+            }
+        }
     }
 }
