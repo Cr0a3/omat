@@ -6,6 +6,8 @@ pub struct CodeGenerator {
 
     //options from args struct
     output: String,
+    target_machine: String,
+
     release: bool,
     debug: bool,
     no_main: bool,
@@ -24,6 +26,8 @@ impl CodeGenerator {
         CodeGenerator { 
             exprs: _exprs, 
             output: _args.output, 
+            target_machine: _args.target,
+
             release: _args.release, 
             debug: _args.debug, 
             no_main: _args.no_main, 

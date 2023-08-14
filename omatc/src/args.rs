@@ -4,9 +4,17 @@ use clap::{Arg, App};
 
 const START_CODE_DEFAULT_VALUE: &str = "main";
 
+#[cfg(target_os = "windows")]
+const TARGET_MACHINE_DEFAULT: &str = "x86_64-pc-windows-msvc";
+
+#[cfg(target_os = "linux")]
+const TARGET_MACHINE_DEFAULT: &str = "x86_64-pc-linux-gnu";
+
 pub struct Args {
     pub input: String,
     pub output: String,
+    pub target: String,
+
     pub release: bool,
     pub debug: bool,
     pub no_main: bool,
@@ -74,10 +82,17 @@ impl Args {
             .long("dynamic_linking") // allows --dynamic_linking
             .help("Sets, that every libary gets linked via dynamic linking.");
 
+        let target_option = Arg::with_name("target")
+            .long("target") // allows --target
+            .takes_value(true)
+            .default_value(TARGET_MACHINE_DEFAULT)
+            .help("sets the target platform");
+
         // now add in the arguments we want to parse
         let app = app
             .arg(input_file_option)
             .arg(output_file_option)
+            .arg(target_option)
             .arg(release_option)
             .arg(debug_option)
             .arg(no_main_option)
@@ -141,8 +156,11 @@ impl Args {
             dynamic_linking = false;
         }
 
+        let target: &str = matches.value_of("target").unwrap();
+
         Args {  input: in_file.to_string(), 
                 output: out_file.to_string(),
+                target: target.to_string(),
                 release: release_bool.clone(),
                 debug: debug_bool.clone(),
                 no_main: no_main,

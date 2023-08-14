@@ -80,3 +80,11 @@ Sets, that every libary gets linked via dynamic linking.
 ```
 omatc --dynamic_linking
 ```
+
+### --target
+Set the target llvm machine for wich the code is generated.
+
+Example, for compiling to linux:
+```
+omatc --target x86_64-pc-linux-gnu
+```
