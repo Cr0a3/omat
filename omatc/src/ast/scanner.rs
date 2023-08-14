@@ -48,6 +48,12 @@ impl Scanner {
         self.tokens.push(tok);
     }
 
+    fn add_token_l(&mut self, _token_type: TokenTyp, lexme: String) {
+        let tok: Token  = Token::new(_token_type, self.line as i32, lexme, self.file.clone());
+
+        self.tokens.push(tok);
+    }
+
     fn is_at_end(&self) -> bool {
         self.current >= (self.code.len() -1)
     }
@@ -186,7 +192,13 @@ impl Scanner {
     } 
 
     fn string(&mut self) {
+        let mut str = String::new();
 
+        while self.peek() != '"' {
+            str.push(self.advance());
+        }
+
+        self.add_token_l(TokenTyp::STRING, str);
     }
 
     fn identifer(&mut self) {
@@ -194,7 +206,7 @@ impl Scanner {
     }
 
     fn num(&mut self) {
-        
+
     }
 
     pub fn scan(&mut self) {

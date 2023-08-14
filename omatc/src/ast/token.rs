@@ -1,13 +1,16 @@
 #[derive(Clone, Copy)]
 pub enum TokenTyp {
     EOF, // End of file
-    IDENTIFIER,
     
+    //types
+    IDENTIFIER,
+    NUMBER,
+    STRING,
+
     //formating stuff
     DOT, COMMA, UNDER_SCORE,
 
     //Math
-    NUMBER,
     ADD, MIN, MUL, DIV, POW,
     AddAdd, MinMin,
 
