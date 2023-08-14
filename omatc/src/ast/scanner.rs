@@ -169,11 +169,33 @@ impl Scanner {
             '\r' => {}
             '\t' => {}
 
-            _ => { 
+            '"' => {
+                self.string();
+            }
+
+            _ => {
+                if c.is_alphanumeric() {
+                    self.identifer();
+                }
+                if c >= '0' && c <= '9' {
+                    self.num();
+                }
                 error::error("E0001", "unexpected character", self.file.as_str(), self.line_str.clone(), self.line, self.pos_in_line as usize, 1);
             }
         }
     } 
+
+    fn string(&mut self) {
+
+    }
+
+    fn identifer(&mut self) {
+
+    }
+
+    fn num(&mut self) {
+        
+    }
 
     pub fn scan(&mut self) {
         while !self.is_at_end() {
