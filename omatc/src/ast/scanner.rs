@@ -194,15 +194,22 @@ impl Scanner {
     fn string(&mut self) {
         let mut str = String::new();
 
-        while self.peek() != '"' {
-            str.push(self.advance());
+        while self.advance() != '"' && !self.is_at_end() {
+            let ad = self.peek();
+            str.push(ad);
         }
+
+        if self.is_at_end() {
+            error::error("E0002", "undetermend string", self.file.as_str(), self.line_str.clone(), self.line, self.pos_in_line as usize, 1);
+        }
+
+        self.advance(); // skip the closing "
 
         self.add_token_l(TokenTyp::STRING, str);
     }
 
     fn identifer(&mut self) {
-
+        
     }
 
     fn num(&mut self) {

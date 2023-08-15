@@ -56,6 +56,8 @@ impl TokenTyp {
             Self::DOT => "dot (.)",
             Self::COMMA => "comma, (,)",
             Self::UNDER_SCORE => "under score (_)",
+            Self::STRING => "string",
+            Self::IDENTIFIER => "identifer",
              _ => "",
         };
 
