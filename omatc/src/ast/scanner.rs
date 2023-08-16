@@ -213,6 +213,18 @@ impl Scanner {
     }
 
     fn num(&mut self) {
+        let mut str = String::new();
+
+        let mut ad = self.advance();
+
+        while ad >= '0' && ad <= '9' || ad == '_' || ad == '.' {
+            ad = self.peek();
+            str.push(ad);
+        }
+
+        str.replace("_", "");
+
+        self.add_token_l(TokenTyp::NUMBER, str);
 
     }
 
