@@ -34,11 +34,13 @@ fn main() {
     let mut tokens  = scanner.get_tokens();
 
     let mut parser: ast::parser::Parser = ast::parser::Parser::new(&mut tokens);
-
     parser.parse();
 
-    let exprs: Vec<ast::expr::Expr> = parser.get_exprs();
+    let exprs = parser.get_exprs();
 
-    let mut code_gen = ast::code::CodeGenerator::new(exprs, args);
+    let mut ir = ast::ir::ir::new(exprs);
+    ir.gen();
+
+    let mut code_gen = ast::code::CodeGenerator::new(ir, args);
     code_gen.gen();
 }

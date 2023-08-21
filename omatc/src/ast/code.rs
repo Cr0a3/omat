@@ -1,13 +1,6 @@
 use crate::ast::ir::ir;
 use crate::args;
 
-use libtcc::*;
-use std::ffi::CString;
-use std::path::Path;
-use std::process::Output;
-
-const OUT_FILE_STDTYPE: FileType = FileType::Object;
-
 pub struct CodeGenerator {
     // options from args struct
     output: String,
@@ -26,12 +19,12 @@ pub struct CodeGenerator {
     start: usize,
 
     // libtcc
-    c_programm: CString,
+    c_programm: String,
 }
 
 impl CodeGenerator {
     pub fn new(_ir: ir, _args: args::Args) -> Self {
-        let c_programm = CString::new(ir.str().as_bytes()).unwrap();
+        let c_programm = _ir.get_c_code();
 
         CodeGenerator { 
             // options from args struct
@@ -54,14 +47,5 @@ impl CodeGenerator {
     }
 
     pub fn gen(&mut self) {
-        let mut output_type = OutputType::Exe;
-        if self.obj {
-            output_type = OutputType::Obj
-        }
-
-        let compile_ret = ctx
-            .set_output_type(output_type)
-            .set_call_back(|msg| err_warn = Some(String::from(msg.to_str().unwrap())))
-            .compile_string(&self.c_programm);
     }
 }
