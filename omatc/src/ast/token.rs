@@ -1,6 +1,7 @@
 #[derive(Clone, Copy)]
 pub enum TokenTyp {
     EOF, // End of file
+    SYMICOLON,
     
     //types
     IDENTIFIER,

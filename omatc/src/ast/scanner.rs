@@ -81,6 +81,10 @@ impl Scanner {
     }
 
     fn peek(&self) -> char {
+        self.code.chars().nth(self.current -1).expect("code chars out of range")
+    }
+
+    fn peek_next(&self) -> char {
         self.code.chars().nth(self.current).expect("code chars out of range")
     }
 
@@ -88,10 +92,10 @@ impl Scanner {
         let c: char = self.advance();
         match c {
             '+' => {
-                if self.peek() == '+' { //++
+                if self.peek_next() == '+' { //++
                     self.add_token(TokenTyp::AddAdd);
                 }
-                else if self.peek() == '=' { //+=
+                else if self.peek_next() == '=' { //+=
                     self.add_token(TokenTyp::AddEqual);
                 }
                 else { //+
@@ -100,10 +104,10 @@ impl Scanner {
             },
 
             '-' => {
-                if self.peek() == '-' { //--
+                if self.peek_next() == '-' { //--
                     self.add_token(TokenTyp::MinMin);
                 }
-                else if self.peek() == '=' { //-=
+                else if self.peek_next() == '=' { //-=
                     self.add_token(TokenTyp::MinEqual);
                 }
                 else { //-
@@ -112,10 +116,10 @@ impl Scanner {
             },
 
             '*' => {
-                if self.peek() == '=' { // *=
+                if self.peek_next() == '=' { // *=
                     self.add_token(TokenTyp::MulEqual);
                 }
-                else if self.peek() == '*' { // **
+                else if self.peek_next() == '*' { // **
                     self.add_token(TokenTyp::POW);
                 }
                 else {  //*
@@ -124,16 +128,16 @@ impl Scanner {
             },
 
             '/' => {
-                if self.peek() == '/' { // single line comment  //...
+                if self.peek_next() == '/' { // single line comment  //...
                     while self.advance() != '\n' {}
                 }
-                else if self.peek() == '*' {    // multi line comment /*...*/
+                else if self.peek_next() == '*' {    // multi line comment /*...*/
                     let mut last_advance: char = ' ';
-                    while last_advance == '*' && self.peek() == '/' {
+                    while last_advance == '*' && self.peek_next() == '/' {
                         last_advance = self.advance();
                     }
                 }
-                else if self.peek() == '=' {  // /=
+                else if self.peek_next() == '=' {  // /=
                     self.add_token(TokenTyp::DivEqual);
                 }
                 else {
@@ -175,18 +179,24 @@ impl Scanner {
             '\r' => {}
             '\t' => {}
 
+            ';' => {
+                self.add_token(TokenTyp::SYMICOLON);
+            }
+
             '"' => {
                 self.string();
             }
 
             _ => {
-                if c.is_alphanumeric() {
-                    self.identifer();
-                }
-                if c >= '0' && c <= '9' {
+                if  c >= '0' && c <= '9'{
                     self.num();
                 }
-                error::error("E0001", "unexpected character", self.file.as_str(), self.line_str.clone(), self.line, self.pos_in_line as usize, 1);
+                else if  (c >= 'A' && c <= 'Z') || (c >= 'a' && c >= 'z') || c == '_' {
+                    self.identifer();
+                }
+                else {
+                    error::error("E0001", "unexpected character", self.file.as_str(), self.line_str.clone(), self.line, self.pos_in_line as usize, 1);
+                }
             }
         }
     } 
@@ -209,26 +219,36 @@ impl Scanner {
     }
 
     fn identifer(&mut self) {
-        
+        let mut str = String::new();
+
+        let mut ad: char = self.peek();
+
+        while (ad >= 'A' && ad <= 'Z') || (ad >= 'a' && ad >= 'z') || ad == '_' {
+            str.push(ad);
+            ad = self.advance();
+        }
+
+        self.add_token_l(TokenTyp::IDENTIFIER, str);
     }
 
     fn num(&mut self) {
         let mut str = String::new();
 
-        let mut ad = self.advance();
+        let mut ad: char = self.peek();
 
-        while ad >= '0' && ad <= '9' || ad == '_' || ad == '.' {
-            ad = self.peek();
+        while (ad >= '0' && ad <= '9') || ad == '.' || ad == '_' {
             str.push(ad);
+            ad = self.advance();
         }
 
-        str.replace("_", "");
+        str = str.replace("_", "");
 
         self.add_token_l(TokenTyp::NUMBER, str);
 
     }
 
     pub fn scan(&mut self) {
+        self.advance();
         while !self.is_at_end() {
             self.start = self.current.clone();
 
