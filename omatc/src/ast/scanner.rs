@@ -191,7 +191,7 @@ impl Scanner {
                 if  c >= '0' && c <= '9'{
                     self.num();
                 }
-                else if  (c >= 'A' && c <= 'Z') || (c >= 'a' && c >= 'z') || c == '_' {
+                else if  (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_' {
                     self.identifer();
                 }
                 else {
