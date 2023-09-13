@@ -94,9 +94,11 @@ impl Scanner {
             '+' => {
                 if self.peek_next() == '+' { //++
                     self.add_token(TokenTyp::AddAdd);
+                    self.advance(); //get the next token, else wrong tockens
                 }
                 else if self.peek_next() == '=' { //+=
                     self.add_token(TokenTyp::AddEqual);
+                    self.advance(); //get the next token, else wrong tockens
                 }
                 else { //+
                     self.add_token(TokenTyp::ADD);
@@ -106,10 +108,18 @@ impl Scanner {
             '-' => {
                 if self.peek_next() == '-' { //--
                     self.add_token(TokenTyp::MinMin);
+                    self.advance(); //get the next token, else wrong tockens
                 }
                 else if self.peek_next() == '=' { //-=
                     self.add_token(TokenTyp::MinEqual);
+                    self.advance(); //get the next token, else wrong tockens
                 }
+
+                else if self.peek_next() == '>' { //->
+                    self.add_token(TokenTyp::R_ARROW);
+                    self.advance(); //get the next token, else error
+                }
+
                 else { //-
                     self.add_token(TokenTyp::MIN);
                 }
@@ -118,9 +128,11 @@ impl Scanner {
             '*' => {
                 if self.peek_next() == '=' { // *=
                     self.add_token(TokenTyp::MulEqual);
+                    self.advance(); //get the next token, else wrong tockens
                 }
                 else if self.peek_next() == '*' { // **
                     self.add_token(TokenTyp::POW);
+                    self.advance(); //get the next token, else wrong tockens
                 }
                 else {  //*
                     self.add_token(TokenTyp::MUL);
@@ -139,6 +151,7 @@ impl Scanner {
                 }
                 else if self.peek_next() == '=' {  // /=
                     self.add_token(TokenTyp::DivEqual);
+                    self.advance(); //get the next token, else wrong tockens
                 }
                 else {
                     self.add_token(TokenTyp::DIV);
@@ -185,6 +198,17 @@ impl Scanner {
 
             '"' => {
                 self.string();
+            }
+
+            ':' => {
+                if self.peek_next() == ':' {
+                    self.add_token(TokenTyp::COLON_COLON);
+                    self.advance(); //get the next token, else wrong tockens
+                }
+                
+                else {
+                    self.add_token(TokenTyp::COLON);
+                }
             }
 
             _ => {

@@ -9,7 +9,9 @@ pub enum TokenTyp {
     STRING,
 
     //formating stuff
-    DOT, COMMA, UNDER_SCORE,
+    DOT, COMMA, UNDER_SCORE, 
+    COLON, COLON_COLON,
+    R_ARROW,
 
     //Math
     ADD, MIN, MUL, DIV, POW,
@@ -59,6 +61,9 @@ impl TokenTyp {
             Self::UNDER_SCORE => "under score (_)",
             Self::STRING => "string",
             Self::IDENTIFIER => "identifer",
+            Self::COLON => "colon (:)",
+            Self::COLON_COLON => "colon colon (::)",
+            Self::R_ARROW => "right arrow (->)",
              _ => "",
         };
 
