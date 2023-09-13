@@ -1,13 +1,13 @@
 use crate::ast::*;
 
-pub struct ir {
+pub struct Ir {
     c_code: String,
     exprs: Vec<expr::Expr>
 }
 
-impl ir {
+impl Ir {
     pub fn new(_exprs: Vec<expr::Expr>) -> Self {
-        ir {
+        Ir {
             c_code: String::new(),
             exprs: _exprs,
         }

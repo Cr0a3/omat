@@ -21,7 +21,7 @@ impl Scanner {
 
         let lines: Vec<String> = _code.lines().map(String::from).collect();
 
-        let mut first_line: String = String::new();
+        let  first_line: String;
 
         if let Some(first) = lines.first().cloned() {
             first_line = first;
@@ -116,7 +116,7 @@ impl Scanner {
                 }
 
                 else if self.peek_next() == '>' { //->
-                    self.add_token(TokenTyp::R_ARROW);
+                    self.add_token(TokenTyp::RArrow);
                     self.advance(); //get the next token, else error
                 }
 
@@ -185,7 +185,7 @@ impl Scanner {
             }
 
             '_' => {
-                self.add_token(TokenTyp::UNDER_SCORE);
+                self.add_token(TokenTyp::UnderScore);
             }
 
             ' ' => {}
@@ -202,7 +202,7 @@ impl Scanner {
 
             ':' => {
                 if self.peek_next() == ':' {
-                    self.add_token(TokenTyp::COLON_COLON);
+                    self.add_token(TokenTyp::ColonColon);
                     self.advance(); //get the next token, else wrong tockens
                 }
                 

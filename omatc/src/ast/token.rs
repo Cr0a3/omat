@@ -9,9 +9,9 @@ pub enum TokenTyp {
     STRING,
 
     //formating stuff
-    DOT, COMMA, UNDER_SCORE, 
-    COLON, COLON_COLON,
-    R_ARROW,
+    DOT, COMMA, UnderScore, 
+    COLON, ColonColon,
+    RArrow,
 
     //Math
     ADD, MIN, MUL, DIV, POW,
@@ -58,12 +58,12 @@ impl TokenTyp {
             Self::Return => "return",
             Self::DOT => "dot (.)",
             Self::COMMA => "comma, (,)",
-            Self::UNDER_SCORE => "under score (_)",
+            Self::UnderScore => "under score (_)",
             Self::STRING => "string",
             Self::IDENTIFIER => "identifer",
             Self::COLON => "colon (:)",
-            Self::COLON_COLON => "colon colon (::)",
-            Self::R_ARROW => "right arrow (->)",
+            Self::ColonColon => "colon colon (::)",
+            Self::RArrow => "right arrow (->)",
              _ => "",
         };
 

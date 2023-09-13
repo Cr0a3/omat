@@ -1,4 +1,4 @@
-use crate::ast::ir::ir;
+use crate::ast::ir::Ir;
 use crate::args;
 
 pub struct CodeGenerator {
@@ -23,7 +23,7 @@ pub struct CodeGenerator {
 }
 
 impl CodeGenerator {
-    pub fn new(_ir: ir, _args: args::Args) -> Self {
+    pub fn new(_ir: Ir, _args: args::Args) -> Self {
         let c_programm = _ir.get_c_code();
 
         CodeGenerator { 

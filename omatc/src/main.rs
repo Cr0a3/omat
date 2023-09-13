@@ -38,7 +38,7 @@ fn main() {
 
     let exprs = parser.get_exprs();
 
-    let mut ir = ast::ir::ir::new(exprs);
+    let mut ir = ast::ir::Ir::new(exprs);
     ir.gen();
 
     let mut code_gen = ast::code::CodeGenerator::new(ir, args);
