@@ -291,8 +291,6 @@ impl Scanner {
 
         let mut ad: char = self.peek();
 
-        println!("number. start char = {}", ad);
-
         while (ad >= '0' && ad <= '9') || ad == '.' || ad == '_' || ad == ',' {
             str.push(ad);
             ad = self.advance();
