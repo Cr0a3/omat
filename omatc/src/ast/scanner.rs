@@ -60,7 +60,7 @@ impl Scanner {
 
     fn advance(&mut self) -> char {
         self.current += 1;
-        let peek_res = self.peek();
+        let mut peek_res = self.peek();
 
         if peek_res == '\n' {
             self.pos_in_line = 0;
@@ -71,6 +71,8 @@ impl Scanner {
             } else {
                 eprintln!("error, while resolving new line");
             }
+
+            peek_res = self.advance(); //result = new advance
 
         }
         else {
