@@ -19,15 +19,13 @@ pub enum TokenTyp {
 
     //vars
     LET, CONST,
-    IMUT,
-    EQUAL,
+    EQUAL, EqualEqual,
     AddEqual, MinEqual, MulEqual, DivEqual,
 
     //functions
     FN,
     LeftBracet, RightBracet,
     LeftParam, RightParam,
-    RetType,
     Return,
 
 }
@@ -35,6 +33,8 @@ pub enum TokenTyp {
 impl TokenTyp {
     pub fn _str(&self) -> String {
         let str: &str = match *self {
+            Self::EqualEqual => "equal equal (==)",
+            Self::EQUAL => "equal (=)",
             Self::EOF => "eof",
             Self::NUMBER => "number",
             Self::ADD => "add",
@@ -54,7 +54,6 @@ impl TokenTyp {
             Self::RightBracet => "right bracet (})",
             Self::LeftParam => "left param (()",
             Self::RightParam => "right param ())",
-            Self::RetType => "ret type",
             Self::Return => "return",
             Self::DOT => "dot (.)",
             Self::COMMA => "comma, (,)",

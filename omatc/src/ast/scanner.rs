@@ -1,9 +1,12 @@
+use std::collections::HashMap;
+
 use crate::ast::token::*;
 use crate::error::error;
 
 pub struct Scanner {
     tokens: Vec<Token>,
     code: String,
+    keywords: HashMap<String, TokenTyp>,
 
     current: usize,
     start: usize,
@@ -29,9 +32,18 @@ impl Scanner {
             std::process::exit(0);
         }
 
+        //define the const keywords
+        let mut _keywords: HashMap<String, TokenTyp> = HashMap::new();
+
+        _keywords.insert(String::from("let"), TokenTyp::LET); //let -> let
+        _keywords.insert(String::from("const"), TokenTyp::CONST); //const -> const
+        _keywords.insert(String::from("return"), TokenTyp::Return); //return -> return
+        _keywords.insert(String::from("fn"), TokenTyp::FN); //fn -> fn
+
         Scanner {
             tokens: Vec::new(),
             code: format!("a{}", _code),    // the a because, peek() + advance() do not get the first char out of the string
+            keywords: _keywords,
             current: 0,
             start: 0,
             line: 1,
@@ -93,6 +105,15 @@ impl Scanner {
     fn scan_token(&mut self) {
         let c: char = self.advance();
         match c {
+            '=' => {
+                if self.peek() == '=' { //==
+                    self.add_token(TokenTyp::EqualEqual);
+                    self.advance(); //get the next token, else wrong tockens
+                }
+                else {
+                    self.add_token(TokenTyp::EQUAL);
+                }
+            }
             '+' => {
                 if self.peek_next() == '+' { //++
                     self.add_token(TokenTyp::AddAdd);
@@ -254,7 +275,15 @@ impl Scanner {
             ad = self.advance();
         }
 
-        self.add_token_l(TokenTyp::IDENTIFIER, str);
+        match self.keywords.get(&str) {
+            Some(&keyword_type) => {
+                self.add_token_l(keyword_type, String::new());
+            }
+            _ => { // if str is not in the keyword list
+                self.add_token_l(TokenTyp::IDENTIFIER, str);
+            }
+        }
+
     }
 
     fn num(&mut self) {
