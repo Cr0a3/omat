@@ -247,7 +247,7 @@ impl Scanner {
 
         let mut ad: char = self.peek();
 
-        while (ad >= 'A' && ad <= 'Z') || (ad >= 'a' && ad >= 'z') || ad == '_' {
+        while (ad >= 'A' && ad <= 'Z') || (ad >= 'a' && ad <= 'z') || ad == '_' {
             str.push(ad);
             ad = self.advance();
         }
