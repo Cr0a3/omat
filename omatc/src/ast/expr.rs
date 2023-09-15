@@ -1,7 +1,5 @@
-use crate::ast::token::Token;
-
 pub enum ExprTyp {
-
+    EOF,
 }
 
 pub struct Expr {

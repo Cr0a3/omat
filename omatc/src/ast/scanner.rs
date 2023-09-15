@@ -55,13 +55,13 @@ impl Scanner {
     }
 
     fn add_token(&mut self, _token_type: TokenTyp) {
-        let tok: Token  = Token::new(_token_type, self.line as i32, String::new(), self.file.clone());
+        let tok: Token  = Token::new(_token_type, self.line as i32, String::new(), self.file.clone(), String::from(self.line_str.as_str()));
 
         self.tokens.push(tok);
     }
 
     fn add_token_l(&mut self, _token_type: TokenTyp, lexme: String) {
-        let tok: Token  = Token::new(_token_type, self.line as i32, lexme, self.file.clone());
+        let tok: Token  = Token::new(_token_type, self.line as i32, lexme, self.file.clone(), String::from(self.line_str.as_str()));
 
         self.tokens.push(tok);
     }

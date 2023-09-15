@@ -60,6 +60,13 @@ impl error_fab {
         self.fmt_lines.push(arrow);
     }
 
+    pub fn add_arrowW(&mut self, file: String, line: usize) {
+        let arrow = 
+                            format!("  -->{}:{}", file, line);
+
+        self.fmt_lines.push(arrow);
+    }
+
     pub fn print(&self) {
         let fmt_error = format!("error[{}]", self.ecode).red();
         println!("{}: {}", fmt_error, self.msg.bold());
@@ -76,6 +83,14 @@ pub fn error(ecode: &str, _msg: &str, file: &str, line: String, line_no: usize, 
     e_fab.add_arrow(file.to_string(), line_no, where_start);
     e_fab.add_code_line(line, true, line_no, false);
     e_fab.add_where(where_start, where_length, false, String::new());
+
+    e_fab.print();
+}
+
+pub fn parser_error(ecode: &str, _msg: &str, file: &str, line: String, line_no: usize) {
+    let mut e_fab = error_fab::new(ecode.to_string(), _msg.to_string());
+    e_fab.add_arrowW(file.to_string(), line_no);
+    e_fab.add_code_line(line, true, line_no, false);
 
     e_fab.print();
 }
