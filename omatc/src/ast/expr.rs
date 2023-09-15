@@ -1,37 +1,33 @@
 use crate::ast::token::Token;
 
-pub enum Expr {
-    Assing(Assing),
-    Binary(Binary),
-    Set(Set),
-    Grouping(Grouping),
-    Logical(Logical),
+pub enum ExprTyp {
+
 }
 
-pub struct Assing {
-    name: Box<Token>,
-    _type: Box<Token>,
-    value: Box<Expr>,
-}
-
-pub struct Binary {
+pub struct Expr {
     lhs: Box<Expr>,
-    op: Box<Token>,
     rhs: Box<Expr>,
+    typ: ExprTyp,
 }
 
-pub struct Set {
-    object: Box<Expr>,
-    name: Box<Token>,
-    value: Box<Expr>,
-}
+impl Expr {
+    pub fn new(lhs: Expr, rhs: Expr, typ: ExprTyp) -> Self {
+        Expr {
+            lhs: Box::from(lhs),
+            rhs: Box::from(rhs),
+            typ: typ,
+        }
+    }
 
-pub struct Grouping {
-    expr: Box<Expr>,
-}
+    pub fn get_type(self) -> ExprTyp {
+        self.typ
+    }
 
-pub struct Logical {
-    lhs: Box<Expr>,
-    op: Box<Token>,
-    rhs: Box<Expr>,
+    pub fn get_lhs(self) -> Box<Expr> {
+        self.lhs
+    }
+
+    pub fn get_rhs(self) -> Box<Expr> {
+        self.rhs
+    }
 }

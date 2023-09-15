@@ -6,6 +6,8 @@ pub struct Parser {
     exprs: Vec<Expr>,
     current: usize,
     start: usize,
+
+    lastToken: Option<Token>,
 }
 
 impl Parser {
@@ -16,10 +18,12 @@ impl Parser {
             exprs: Vec::new(),
             current: 0,
             start: 0,
+            lastToken: None,
         }
     }
 
     fn advance(&mut self) -> &Token {
+        self.lastToken = Option::from(self.peek().to_owned());
         self.current += 1; 
         let res = self.peek();
         res
