@@ -7,7 +7,7 @@ members = [
 
 [workspace.package]
 version = "0.0.0-u"
-authors = ["Toni Ivanovski"]
+authors = ["Cr0a3"]
 edition = "2023"
 readme = "README.md"
 homepage = ""
